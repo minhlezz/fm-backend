@@ -1,0 +1,8 @@
+{
+    "env" : {
+        "MONGO_USER": "user12345",
+        "MONGO_PASSWORD":"12345",
+        "MONGO_DB": "TESTDB",
+        "JWT_SECRET_KEY": "JWT_SECRET_KEY"
+    }
+}
