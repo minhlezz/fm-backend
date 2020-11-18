@@ -3,6 +3,11 @@ const errorMessage = require('../../errorMessage');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET_KEY } = require('../../config');
+const {
+    validateRegisterInput,
+    validateLoginInput
+} = require('../../utils/validator');
+
 
 module.exports = {
     Query: {
@@ -26,35 +31,39 @@ module.exports = {
 
     },
     Mutation: {
-        register: async (parent, args, { User }) => {
+        register: async (parent, { input: {
+            email, password, confirmPassword
+        } }, { User }) => {
             try {
+                const { valid, errors } = validateRegisterInput(
+                    email,
+                    password,
+                    confirmPassword
+                );
                 //Check user input
-                if (!args.input.email || !args.input.password) {
+                if (!valid) {
                     throw new UserInputError('ErrorInput', { errors });
                 }
 
                 //check user is existing
-                const existingUser = await User.findOne({ email: args.input.email });
+                const existingUser = await User.findOne({ email });
                 if (existingUser) {
-                    throw new Error(errorMessage.register.existingUser);
+                    throw new UserInputError(errorMessage.register.existingUser, {
+                        errors: {
+                            email: errorMessage.register.existingUser
+                        }
+                    });
                 }
+                password = await bcrypt.hash(password, 12);
+                const newUser = new User({
+                    email,
+                    password
+                });
+                const result = await newUser.save();
 
-                // const hashedPassword = await bcrypt.hash(args.input.password, 12);
-                // const user = await new User({
-                //     email: args.input.email,
-                //     password: hashedPassword
-                // });
-                // const result = await user.save();
-                // return {
-                //     ...result._doc,
-                //     id: result.id,
-                //     password: null
-                // }
-                args.input.password = await bcrypt.hash(args.input.password, 12);
-                const user = await new User(args.input).save();
                 return {
-                    ...user._doc,
-                    password: null
+                    ...result._doc,
+                    id: result.id,
                 };
             } catch (error) {
                 console.log('error in register progress!!');
@@ -62,16 +71,22 @@ module.exports = {
             }
         },
 
-        login: async (parent, { email, password }, { User }) => {
-
+        login: async (_, { email, password }, { User }) => {
+            const { errors, valid } = validateLoginInput(email, password);
+            if (!valid) {
+                throw new UserInputError('Errors', { errors });
+            }
             const user = await User.findOne({ email });
             if (!user) {
-                throw new Error(errorMessage.loginMessage.undefinedEmail);
+                errors.general = 'User not found';
+                throw new UserInputError(errorMessage.loginMessage.undefinedEmail, { errors });
             }
-            const valid = await bcrypt.compare(password, user.password)
+            const match = await bcrypt.compare(password, user.password)
 
-            if (!valid) {
-                throw new Error(errorMessage.loginMessage.wrongPassword);
+            if (!match) {
+                errors.general = 'Incorrect Password';
+                throw new UserInputError(errorMessage.loginMessage.wrongPassword,
+                    { errors });
             }
 
             const token = jwt.sign(
@@ -84,18 +99,19 @@ module.exports = {
             );
 
             return {
+                ...user._doc,
+                userId: user.id,
                 token: token,
                 tokenExpiration: 1,
-                userId: user.id,
             }
 
         },
 
-        updateUser: async (_,args, { User }) => {
+        updateUser: async (_, args, { User }) => {
             const user = await User.findOneAndUpdate(
-                {_id: args.id},
+                { _id: args.id },
                 args.profileInput,
-                {new: true}
+                { new: true }
             );
             return user;
         },

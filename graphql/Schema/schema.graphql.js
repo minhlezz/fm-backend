@@ -53,6 +53,7 @@ type Picture {
 input UserInput {
     email: String!
     password: String!
+    confirmPassword: String!
 }
 
 
