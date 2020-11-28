@@ -19,22 +19,25 @@ type User {
     budget: Float
     mobile: String
     mobileVerified: Boolean
-    radius: Float
     age: Int
     gender: Gender
+    aboutMe: String
+    moveInDate: String
+    minStay: String
+    headline: String
+    cleanliness: String
+    overnightGuests: String
+    partyHarbits: String
+    getUp: String
+    goToBed: String
+    foodReference: String
+    smoker: Boolean
+    workSchedule: String
+    occupation: String
+    pet: String
+
 }
 
-# type UserProfile {
-#     id: String
-#     username: String
-#     budget: Float
-#     mobile: String
-#     mobileVerified: Boolean
-#     radius: Float
-#     age: Int
-#     gender: Gender
-#     user: User
-# }
 
 enum Gender {
     Male
@@ -61,18 +64,28 @@ input ProfileInput {
     username: String
     budget: Float
     mobile: String
-    radius: Float
     age: Int
     gender: String
-    user: String
+    aboutMe: String
+    moveInDate: String
+    minStay: String
+    headline: String
+    cleanliness: String
+    overnightGuests: String
+    partyHarbits: String
+    getUp: String
+    goToBed: String
+    foodReference: String
+    smoker: Boolean
+    workSchedule: String
+    occupation: String
+    pet: String
 }
 
 #Query && Mutation
 type Query {
-    user(id: String!): User
+    getUser(id: String!): User
     users: [User!]
-    # userProfile(_id: String): UserProfile!
-    # allUserProfiles: [UserProfile!]
 
 }
 
@@ -80,13 +93,10 @@ type Query {
 type Mutation {
     login(email: String!, password: String!): AuthData!
     register(input: UserInput): User!
-    # createProfile(profileInput: ProfileInput): UserProfile
-    # updateProfile(id: String!, profileInput: ProfileInput): UserProfile!
-    # deleteProfile(id: String!): UserProfile!
+    updateUser(id: String!, profileInput: ProfileInput): User!
     createPicture(name: String!, pictureUrl: String!): Picture!
     updatePicture(id: String!, name: String!, pictureUrl: String!): Picture!
     deletePicture(id: String): Picture!
-    updateUser(id: String!, profileInput: ProfileInput): User!
 
 }
 

@@ -11,9 +11,14 @@ const {
 
 module.exports = {
     Query: {
-        user: async (parent, args, { User }) => {
-            const userInfo = await User.findOne({ _id: args.id });
-            return userInfo;
+        getUser: async (parent, { id }, { User }) => {
+            try {
+                const user = await User.findById(id);
+                if (user) return user;
+                else throw new Error('User not found');
+            } catch (err) {
+                throw new Error(err);
+            }
         },
         users: async (parent, args, { User, authUser }) => {
 
@@ -107,10 +112,10 @@ module.exports = {
 
         },
 
-        updateUser: async (_, args, { User }) => {
+        updateUser: async (_, { id, profileInput }, { User }) => {
             const user = await User.findOneAndUpdate(
-                { _id: args.id },
-                args.profileInput,
+                { _id: id },
+                profileInput,
                 { new: true }
             );
             return user;

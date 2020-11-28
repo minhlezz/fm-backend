@@ -28,19 +28,37 @@ const userSchema = new Schema({
 
     budget: { type: Number },
 
-    radius: { type: Number },
-
     age: { type: Number },
 
     gender: { type: String },
 
-    moveIndate: { type: Date },
-    /**User 1 - 1 User Profile*/
-    // userProfile: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'UserProfile'
-    // }
+    moveInDate: { type: String },
 
+    aboutMe: { type: String },
+
+    minStay: { type: String },
+
+    headline: { type: String },
+
+    cleanliness: { type: String },
+
+    overnightGuests: { type: String },
+
+    partyHarbits: { type: String },
+
+    getUp: { type: String },
+
+    goToBed: { type: String },
+
+    foodReference: { type: String },
+
+    smoker: { type: Boolean },
+
+    workSchedule: { type: String },
+
+    occupation: { type: String },
+
+    pet: { type: String },
 }
 
 );

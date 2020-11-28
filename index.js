@@ -7,15 +7,15 @@ const { uri, PORT, API_URL } = require('./config');
 const User = require('./models/user.model');
 const Picture = require('./models/picture.model');
 const getUser = require('./graphql/authenUser');
-// const UserProfile = require('./models/userProfile.model');
-/**MongoDB config */
+
 
 const startServer = async () => {
     try {
         await mongoose.set("useCreateIndex", true);
         await mongoose.connect(uri, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
         });
         console.log('database is connected !!!!!!!!!');
 
@@ -23,13 +23,12 @@ const startServer = async () => {
         const server = new ApolloServer({
             typeDefs: schemaGraphQl,
             resolvers: mergeResolvers,
-            context: ({req,res}) => {
-                const authUser =  getUser(req)
-                return{
+            context: ({ req, res }) => {
+                const authUser = getUser(req)
+                return {
                     req,
                     authUser,
                     User,
-                    // UserProfile,
                     Picture,
                 }
             },
