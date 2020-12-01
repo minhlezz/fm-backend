@@ -25,13 +25,14 @@ type User {
     moveInDate: String
     minStay: String
     headline: String
+    description: String
     cleanliness: String
     overnightGuests: String
-    partyHarbits: String
+    partyHabits: String
     getUp: String
     goToBed: String
     foodReference: String
-    smoker: Boolean
+    smoker: String
     workSchedule: String
     occupation: String
     pet: String
@@ -70,13 +71,14 @@ input ProfileInput {
     moveInDate: String
     minStay: String
     headline: String
+    description: String
     cleanliness: String
     overnightGuests: String
-    partyHarbits: String
+    partyHabits: String
     getUp: String
-    goToBed: String
+    goToBed: String 
     foodReference: String
-    smoker: Boolean
+    smoker: String
     workSchedule: String
     occupation: String
     pet: String
