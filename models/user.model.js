@@ -40,11 +40,13 @@ const userSchema = new Schema({
 
     headline: { type: String },
 
+    description: {type: String},
+
     cleanliness: { type: String },
 
     overnightGuests: { type: String },
 
-    partyHarbits: { type: String },
+    partyHabits: { type: String },
 
     getUp: { type: String },
 
@@ -52,7 +54,7 @@ const userSchema = new Schema({
 
     foodReference: { type: String },
 
-    smoker: { type: Boolean },
+    smoker: { type: String },
 
     workSchedule: { type: String },
 
