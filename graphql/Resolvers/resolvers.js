@@ -1,7 +1,9 @@
 const userResolver = require('./user.resolver');
-const {merge} = require('lodash');
+const locationResolver = require('./location.resolver');
+const { merge } = require('lodash');
 
 module.exports = merge(
     userResolver,
+    locationResolver
 )
 

@@ -10,7 +10,7 @@ type AuthData {
 }
 
 type User {
-    id: String
+    id: ID
     email: String
     password: String
     # userProfile: UserProfile
@@ -36,7 +36,7 @@ type User {
     workSchedule: String
     occupation: String
     pet: String
-
+    location: Location
 }
 
 
@@ -53,6 +53,13 @@ type Picture {
     user: User
 }
 
+type Location {
+    id: ID
+    latitude: Float
+    longitude: Float
+    bound: Int
+    user: User
+}
 #Input Type
 input UserInput {
     email: String!
@@ -84,10 +91,18 @@ input ProfileInput {
     pet: String
 }
 
+input LocationInput {
+    latitude: Float
+    longitude: Float
+    bound: Int
+}
 #Query && Mutation
 type Query {
-    getUser(id: String!): User
+    getUser(id: ID!): User
     users: [User!]
+    getLocation(id: ID!): Location
+    allLocations: [Location!]
+
 
 }
 
@@ -95,7 +110,9 @@ type Query {
 type Mutation {
     login(email: String!, password: String!): AuthData!
     register(input: UserInput): User!
-    updateUser(id: String!, profileInput: ProfileInput): User!
+    updateUser(id: ID!, profileInput: ProfileInput): User!
+    createLocation(locationInput: LocationInput): Location
+    updateLocation (id: ID!,locationInput: LocationInput): Location
     createPicture(name: String!, pictureUrl: String!): Picture!
     updatePicture(id: String!, name: String!, pictureUrl: String!): Picture!
     deletePicture(id: String): Picture!
