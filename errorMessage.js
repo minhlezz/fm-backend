@@ -13,10 +13,14 @@ const auth = {
     unAuth: 'unauthenticated !!! pls check again!!'
 }
 
+const location = {
+    locationExisting: 'this location has already existed! '
+}
 
 
 module.exports = {
    register,
    loginMessage,
-   auth
+   auth,
+   location
   };

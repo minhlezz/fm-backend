@@ -1,5 +1,7 @@
 const User = require('./user.model');
-const UserProfile = require('./userProfile.model');
+const LocationModel = require('./location.model');
+
 module.exports = {
     User,
+    LocationModel
 };
