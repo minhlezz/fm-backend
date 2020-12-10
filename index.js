@@ -7,7 +7,7 @@ const { uri, PORT, API_URL } = require('./config');
 const User = require('./models/user.model');
 const Picture = require('./models/picture.model');
 const getUser = require('./graphql/authenUser');
-
+const Location = require('./models/location.model');
 
 const startServer = async () => {
     try {
@@ -30,6 +30,7 @@ const startServer = async () => {
                     authUser,
                     User,
                     Picture,
+                    Location
                 }
             },
         });

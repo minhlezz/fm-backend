@@ -40,7 +40,7 @@ const userSchema = new Schema({
 
     headline: { type: String },
 
-    description: {type: String},
+    description: { type: String },
 
     cleanliness: { type: String },
 
@@ -61,8 +61,11 @@ const userSchema = new Schema({
     occupation: { type: String },
 
     pet: { type: String },
-}
-
-);
+    
+    location: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Location'
+    },
+});
 
 module.exports = mongoose.model('User', userSchema);

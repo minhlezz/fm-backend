@@ -1,4 +1,4 @@
-const { AuthenticationError, UserInputError } = require('apollo-server-express');
+const { UserInputError } = require('apollo-server-express');
 const errorMessage = require('../../errorMessage');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -20,25 +20,16 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        users: async (parent, args, { User, authUser }) => {
-
-            if (!authUser) {
-                throw new AuthenticationError(errorMessage.auth.unAuth);
-            }
-            const currentUser = await User.findById({ _id: authUser.userId });
-            if (currentUser) {
-                const users = await User.find();
-                return users;
-            }
-
-
+        users: async (_, args, { User }) => {
+            const users = await User.find();
+            return users;
         },
 
     },
     Mutation: {
         register: async (parent, { input: {
             email, password, confirmPassword
-        } }, { User }) => {
+        } }, { User, Location }) => {
             try {
                 const { valid, errors } = validateRegisterInput(
                     email,
@@ -65,7 +56,6 @@ module.exports = {
                     password
                 });
                 const result = await newUser.save();
-
                 return {
                     ...result._doc,
                     id: result.id,
@@ -120,5 +110,13 @@ module.exports = {
             );
             return user;
         },
+    },
+    User: {
+        location: async ( parent , args, { Location }, infor) => {
+            const locationR = await Location.findOne({
+                user: parent
+            });
+            return locationR
+        }
     }
 }
