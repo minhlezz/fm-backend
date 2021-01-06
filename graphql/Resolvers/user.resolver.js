@@ -7,6 +7,7 @@ const {
     validateRegisterInput,
     validateLoginInput
 } = require('../../utils/validator');
+const { find } = require('../../models/message.model');
 
 
 module.exports = {
@@ -20,16 +21,37 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        users: async (_, args, { User }) => {
-            const users = await User.find();
-            return users;
+        users: async (_, args, {user, User, Message }) => {
+            try {
+                let users = await User.find();
+                //Filtering lastedMessage
+                const allUserMessages = await Message.find({
+                    $or: [
+                        { sender: user.email },
+                        { receiver: user.email }
+                    ]
+                }).sort({
+                    createdAt: -1
+                });
+                users = users.map((otherUser) => {
+                    const latestMessage = allUserMessages.find((message) =>
+                        message.sender === otherUser.email || message.receiver === otherUser.email);
+                    otherUser.latestMessage = latestMessage
+                    return otherUser;
+                })
+                return users;
+            } catch (err) {
+                console.log(err);
+                throw err;
+            }
+
         },
 
     },
     Mutation: {
         register: async (parent, { input: {
             email, password, confirmPassword
-        } }, { User, Location }) => {
+        } }, { User }) => {
             try {
                 const { valid, errors } = validateRegisterInput(
                     email,
@@ -112,11 +134,11 @@ module.exports = {
         },
     },
     User: {
-        location: async ( parent , args, { Location }, infor) => {
+        location: async (parent, args, { Location }, infor) => {
             const locationR = await Location.findOne({
                 user: parent
             });
             return locationR
-        }
+        },
     }
 }

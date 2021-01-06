@@ -3,11 +3,9 @@ const { ApolloServer } = require('apollo-server-express');
 const schemaGraphQl = require('./graphql/Schema/schema.graphql');
 const mergeResolvers = require('./graphql/Resolvers/resolvers');
 const mongoose = require('mongoose');
-const { uri, PORT, API_URL } = require('./config');
-const User = require('./models/user.model');
-const Picture = require('./models/picture.model');
-const getUser = require('./graphql/authenUser');
-const Location = require('./models/location.model');
+const { uri, PORT } = require('./config');
+const http = require('http');
+const authenUser = require('./graphql/authenUser');
 
 const startServer = async () => {
     try {
@@ -23,20 +21,14 @@ const startServer = async () => {
         const server = new ApolloServer({
             typeDefs: schemaGraphQl,
             resolvers: mergeResolvers,
-            context: ({ req, res }) => {
-                const authUser = getUser(req)
-                return {
-                    req,
-                    authUser,
-                    User,
-                    Picture,
-                    Location
-                }
-            },
+            context: authenUser,
         });
         server.applyMiddleware({ app });
-        app.listen({ port: PORT }, () => {
-            console.log(`Server is running on ${API_URL}`)
+        const httpServer = http.createServer(app);
+        server.installSubscriptionHandlers(httpServer);
+        httpServer.listen(PORT, () => {
+            console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
+            console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
         })
     } catch (error) {
         throw error;

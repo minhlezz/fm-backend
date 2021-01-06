@@ -37,6 +37,7 @@ type User {
     occupation: String
     pet: String
     location: Location
+    latestMessage: Message
 }
 
 
@@ -96,14 +97,26 @@ input LocationInput {
     longitude: Float
     bound: Int
 }
-#Query && Mutation
+##Filtering 
+
+
+
+##Message
+type Message {
+    id: ID
+    content: String!
+    sender: String!
+    receiver: String!
+    createdAt: String!
+
+}
+##Query && Mutation && Subscription
 type Query {
     getUser(id: ID!): User
-    users: [User!]
+    users: [User]!
     getLocation(id: ID!): Location
     allLocations: [Location!]
-
-
+    getMessages(sender: String!): [Message]!
 }
 
 
@@ -116,8 +129,11 @@ type Mutation {
     createPicture(name: String!, pictureUrl: String!): Picture!
     updatePicture(id: String!, name: String!, pictureUrl: String!): Picture!
     deletePicture(id: String): Picture!
-
+    sendMessage(receiver: String!, content: String!): Message!
 }
 
+type Subscription {
+    newMessage: Message!
+  }
 `;
 
