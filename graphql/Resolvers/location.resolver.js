@@ -20,15 +20,15 @@ module.exports = {
     },
 
     Mutation: {
-        createLocation: async (parent, { locationInput }, { Location, authUser }) => {
+        createLocation: async (parent, { locationInput }, { Location, user }) => {
             //Check Authentication
-            if (!authUser) {
+            if (!user) {
                 throw new AuthenticationError(errorMessage.auth.unAuth);
             }
             const lat = locationInput.latitude;
             const long = locationInput.longitude;
             console.log(lat, long);
-            const userId = authUser.userId;
+            const userId = user.userId;
             //Check location point existed by [lat,long]
             const oneUser = await Location.findById({user: userId }).populate('user')
             .exec(function(err){
@@ -51,7 +51,7 @@ module.exports = {
             const newLocation = await new Location(locationInput);
             /** convert ID
              set Relation  to User  */
-            newLocation.user = authUser.userId;
+            newLocation.user = user.userId;
             const location = await newLocation.save();
             return location
 
