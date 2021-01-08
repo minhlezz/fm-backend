@@ -38,6 +38,7 @@ type User {
     pet: String
     location: Location
     latestMessage: Message
+    houseHold: HouseHold
 }
 
 
@@ -60,6 +61,22 @@ type Location {
     longitude: Float
     bound: Int
     user: User
+}
+
+type HouseHold {
+    id: ID
+    owner: User
+    homeDescription: String
+    buildingType: String
+    area: Float
+    peopleInHouseHold: Int
+    houseHoldSex: Gender
+    airConditioning: Boolean
+    internet: Boolean
+    parking: Boolean
+    privateBathroom: Boolean
+    yard: Boolean
+    
 }
 #Input Type
 input UserInput {
@@ -97,6 +114,19 @@ input LocationInput {
     longitude: Float
     bound: Int
 }
+
+input HouseHoldInput {
+    homeDescription: String
+    buildingType: String
+    area: Float
+    peopleInHouseHold: Int
+    houseHoldSex: Gender
+    airConditioning: Boolean
+    internet: Boolean
+    parking: Boolean
+    privateBathroom: Boolean
+    yard: Boolean
+}
 ##Filtering 
 
 
@@ -117,6 +147,9 @@ type Query {
     getLocation(id: ID!): Location
     allLocations: [Location!]
     getMessages(sender: String!): [Message]!
+    getHouseHold(id: ID!): HouseHold
+    getHouseHolds: [HouseHold]
+
 }
 
 
@@ -130,6 +163,9 @@ type Mutation {
     updatePicture(id: String!, name: String!, pictureUrl: String!): Picture!
     deletePicture(id: String): Picture!
     sendMessage(receiver: String!, content: String!): Message!
+    createHouseHold(houseHoldInput: HouseHoldInput): HouseHold
+    updateHouseHold(id: ID!, houseHoldInput: HouseHoldInput): HouseHold!
+
 }
 
 type Subscription {

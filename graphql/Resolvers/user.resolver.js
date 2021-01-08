@@ -21,7 +21,7 @@ module.exports = {
                 throw new Error(err);
             }
         },
-        users: async (_, args, {user, User, Message }) => {
+        users: async (_, args, { user, User, Message }) => {
             try {
                 let users = await User.find();
                 //Filtering lastedMessage
@@ -140,5 +140,12 @@ module.exports = {
             });
             return locationR
         },
+        houseHold: async (parent, __,{ HouseHold }) => {
+            console.log(parent);
+            const houseHoldOwner = await HouseHold.findOne({
+                owner: parent
+            })
+            return houseHoldOwner;
+        }
     }
 }

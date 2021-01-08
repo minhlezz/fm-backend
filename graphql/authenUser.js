@@ -5,6 +5,7 @@ const User = require('../models/user.model');
 const Picture = require('../models/picture.model');
 const Location = require('../models/location.model');
 const Message = require('../models/message.model');
+const HouseHold = require('../models/houseHold.model');
 
 const pubsub = new PubSub();
 
@@ -28,13 +29,17 @@ module.exports = (context) => {
         })
     }
 
+    //Push Pubsub to Context
     context.pubsub = pubsub
-    //Model
+
+    //Push Model to Context
     context.User = User
     context.Picture = Picture
     context.Location = Location
     context.Message = Message
+    context.HouseHold = HouseHold
 
-    return context
+
+    return context;
 }
 
