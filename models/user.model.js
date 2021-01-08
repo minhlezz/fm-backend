@@ -66,6 +66,12 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Location'
     },
+
+    houseHold: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'HouseHold'
+    }
+
 });
 
 module.exports = mongoose.model('User', userSchema);
