@@ -66,10 +66,13 @@ type Location {
 type HouseHold {
     id: ID
     owner: User
-    homeDescription: String
+    houseTitle: String
+    houseDescription: String
     buildingType: String
     area: Float
-    peopleInHouseHold: Int
+    budget: Float
+    bath: Int
+    bed: Int
     houseHoldSex: Gender
     airConditioning: Boolean
     internet: Boolean
@@ -78,7 +81,8 @@ type HouseHold {
     yard: Boolean
     
 }
-#Input Type
+
+
 input UserInput {
     email: String!
     password: String!
@@ -116,10 +120,28 @@ input LocationInput {
 }
 
 input HouseHoldInput {
-    homeDescription: String
+    houseTitle: String
+    houseDescription: String
     buildingType: String
     area: Float
-    peopleInHouseHold: Int
+    budget: Float
+    bath: Int
+    bed: Int
+    houseHoldSex: Gender
+    airConditioning: Boolean
+    internet: Boolean
+    parking: Boolean
+    privateBathroom: Boolean
+    yard: Boolean
+    
+}
+##Filtering 
+input Filters {
+    buildingType: String
+    area: Float
+    budget: Float
+    bath: Int
+    bed: Int
     houseHoldSex: Gender
     airConditioning: Boolean
     internet: Boolean
@@ -127,9 +149,8 @@ input HouseHoldInput {
     privateBathroom: Boolean
     yard: Boolean
 }
-##Filtering 
 
-
+ 
 
 ##Message
 type Message {
@@ -141,6 +162,7 @@ type Message {
 
 }
 ##Query && Mutation && Subscription
+
 type Query {
     getUser(id: ID!): User
     users: [User]!
@@ -149,7 +171,8 @@ type Query {
     getMessages(sender: String!): [Message]!
     getHouseHold(id: ID!): HouseHold
     getHouseHolds: [HouseHold]
-
+    homeFilters(filtersInput: Filters): [HouseHold]!
+    searchQuery(filter: String): [User]!
 }
 
 
@@ -171,5 +194,6 @@ type Mutation {
 type Subscription {
     newMessage: Message!
   }
-`;
 
+`
+    ;
