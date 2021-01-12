@@ -7,7 +7,6 @@ const {
     validateRegisterInput,
     validateLoginInput
 } = require('../../utils/validator');
-const { find } = require('../../models/message.model');
 
 
 module.exports = {

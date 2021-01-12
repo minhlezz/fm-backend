@@ -3,13 +3,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const houseHoldSchema = new Schema({
 
-    homeDescription: { type: String },
+    houseTitle: { type: String },
+
+    houseDescription: { type: String },
 
     buildingType: { type: String },
 
     area: { type: Number },
 
-    peopleInHouseHold: { type: Number },
+    budget: { type: Number },
+
+    bath: { type: Number },
+
+    bed: { type: Number },
 
     houseHoldSex: { type: String },
 
