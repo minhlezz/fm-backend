@@ -77,5 +77,12 @@ module.exports = {
 
 
     //Other Config
-
+    HouseHold: {
+        owner: async (parent, __, { User }) => {
+            const userOwner = await User.findById({
+                _id: parent.owner
+            });
+            return userOwner;
+        }
+    }
 }
