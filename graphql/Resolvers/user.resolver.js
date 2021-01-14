@@ -140,7 +140,6 @@ module.exports = {
             return locationR
         },
         houseHold: async (parent, __,{ HouseHold }) => {
-            console.log(parent);
             const houseHoldOwner = await HouseHold.findOne({
                 owner: parent
             })
