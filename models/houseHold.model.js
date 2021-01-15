@@ -7,6 +7,10 @@ const houseHoldSchema = new Schema({
 
     houseDescription: { type: String },
 
+    provinceCityHH: { type: String },
+
+    districtCityHH: { type: String },
+
     buildingType: { type: String },
 
     area: { type: Number },
