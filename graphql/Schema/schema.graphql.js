@@ -13,7 +13,6 @@ type User {
     id: ID
     email: String
     password: String
-    # userProfile: UserProfile
     images: [Picture]
     username: String
     budget: Float
@@ -36,6 +35,9 @@ type User {
     workSchedule: String
     occupation: String
     pet: String
+    ##Address
+    provinceCityUser: String
+    districtCityUser: String
     location: Location
     latestMessage: Message
     houseHold: HouseHold
@@ -68,6 +70,8 @@ type HouseHold {
     owner: User
     houseTitle: String
     houseDescription: String
+    provinceCityHH: String
+    districtCityHH: String
     buildingType: String
     area: Float
     budget: Float
@@ -92,6 +96,8 @@ input UserInput {
 
 input ProfileInput {
     username: String
+    provinceCityUser: String
+    districtCityUser: String
     budget: Float
     mobile: String
     age: Int
@@ -123,6 +129,8 @@ input HouseHoldInput {
     houseTitle: String
     houseDescription: String
     buildingType: String
+    provinceCityHH: String
+    districtCityHH: String
     area: Float
     budget: Float
     bath: Int

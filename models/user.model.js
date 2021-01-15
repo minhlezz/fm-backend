@@ -22,6 +22,11 @@ const userSchema = new Schema({
 
     username: { type: String },
 
+    provinceCityUser: { type: String },
+
+    districtCityUser: { type: String },
+
+
     mobile: { type: String },
 
     mobileVerified: { type: Boolean },
@@ -61,7 +66,7 @@ const userSchema = new Schema({
     occupation: { type: String },
 
     pet: { type: String },
-    
+
     location: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Location'
