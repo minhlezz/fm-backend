@@ -47,14 +47,15 @@ module.exports = {
                     throw AuthenticationError('Unauthenticated !!');
                 }
 
-                const existingHouseHold = await HouseHold.findOne({
-                    owner: user.userId,
-                });
-                if (existingHouseHold) {
-                    throw new UserInputError('da house iz existing,..');
-                };
+                // const existingHouseHold = await HouseHold.findOne({
+                //     owner: user.userId,
+                // });
+                // if (existingHouseHold) {
+                //     throw new UserInputError('da house iz existing,..');
+                // };
                 const newHouseHold = new HouseHold(houseHoldInput);
                 newHouseHold.owner = user.userId;
+                newHouseHold.createdAt = new Date().toISOString();
                 newHouseHold.id = newHouseHold.id.toString();
                 const houseHold = await newHouseHold.save();
                 return houseHold;

@@ -74,7 +74,8 @@ module.exports = {
                 password = await bcrypt.hash(password, 12);
                 const newUser = new User({
                     email,
-                    password
+                    password,
+                    createdAt: new Date().toISOString()
                 });
                 const result = await newUser.save();
                 return {
