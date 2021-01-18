@@ -35,6 +35,8 @@ type User {
     workSchedule: String
     occupation: String
     pet: String
+    createdAt: String
+    updatedAt: String
     ##Address
     provinceCityUser: String
     districtCityUser: String
@@ -83,6 +85,8 @@ type HouseHold {
     parking: Boolean
     privateBathroom: Boolean
     yard: Boolean
+    createdAt: String!
+    updatedAt: String
     
 }
 
@@ -141,6 +145,7 @@ input HouseHoldInput {
     parking: Boolean
     privateBathroom: Boolean
     yard: Boolean
+    updatedAt: String
     
 }
 ##Filtering 

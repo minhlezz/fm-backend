@@ -37,8 +37,17 @@ const houseHoldSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-}
 
+    createdAt: {
+        type: String,
+        required: true,
+    },
+
+    updatedAt: {
+        type: String,
+    },
+},
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('HouseHold', houseHoldSchema);

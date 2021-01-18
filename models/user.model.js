@@ -75,8 +75,17 @@ const userSchema = new Schema({
     houseHold: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'HouseHold'
-    }
+    },
+    createdAt: {
+        type: String,
+        required: true,
+    },
 
-});
+    updatedAt: {
+        type: String,
+    },
+},
+    {timestamps: true}
+);
 
 module.exports = mongoose.model('User', userSchema);
