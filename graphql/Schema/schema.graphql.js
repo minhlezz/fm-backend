@@ -193,6 +193,7 @@ type Mutation {
     login(email: String!, password: String!): AuthData!
     register(input: UserInput): User!
     updateUser(id: ID!, profileInput: ProfileInput): User!
+    deleteUser(id: ID!): User!
     createLocation(locationInput: LocationInput): Location
     updateLocation (id: ID!,locationInput: LocationInput): Location
     createPicture(name: String!, pictureUrl: String!): Picture!
@@ -201,7 +202,8 @@ type Mutation {
     sendMessage(receiver: String!, content: String!): Message!
     createHouseHold(houseHoldInput: HouseHoldInput): HouseHold
     updateHouseHold(id: ID!, houseHoldInput: HouseHoldInput): HouseHold!
-
+    deleteHouseHold(id: ID!): HouseHold!
+    
 }
 
 type Subscription {
