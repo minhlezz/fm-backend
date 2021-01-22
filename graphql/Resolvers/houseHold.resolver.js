@@ -3,7 +3,6 @@ const { UserInputError, AuthenticationError } = require("apollo-server");
 
 
 module.exports = {
-
     //Query 
     Query: {
         getHouseHold: async (_, { id }, { HouseHold }) => {
@@ -71,6 +70,12 @@ module.exports = {
                 { new: true }
             );
             return houseHold;
+        },
+        deleteHouseHold: async(_,{id}, {HouseHold}) => {
+            const household = HouseHold.findByIdAndRemove({
+                _id: id
+            });
+            return household;
         }
     },
 

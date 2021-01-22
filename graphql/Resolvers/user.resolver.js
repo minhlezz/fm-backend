@@ -132,6 +132,13 @@ module.exports = {
             );
             return user;
         },
+
+        deleteUser: async (_, { id }, { User }) => {
+            const user = await User.findByIdAndRemove({
+                _id: id
+            });
+            return user;
+        }
     },
     User: {
         location: async (parent, args, { Location }, infor) => {
@@ -140,7 +147,7 @@ module.exports = {
             });
             return locationR
         },
-        houseHold: async (parent, __,{ HouseHold }) => {
+        houseHold: async (parent, __, { HouseHold }) => {
             const houseHoldOwner = await HouseHold.findOne({
                 owner: parent
             })
