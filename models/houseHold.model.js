@@ -38,14 +38,9 @@ const houseHoldSchema = new Schema({
         ref: 'User'
     },
 
-    createdAt: {
-        type: String,
-        required: true,
-    },
+    createdAt: { type: Date, default: Date.now },
 
-    updatedAt: {
-        type: String,
-    },
+    updatedAt: { type: Date, default: Date.now }
 },
     { timestamps: true }
 );

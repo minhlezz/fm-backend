@@ -151,8 +151,10 @@ input HouseHoldInput {
 ##Filtering 
 input Filters {
     buildingType: String
-    area: Float
-    budget: Float
+    areaGTE: Float
+    areaLTE: Float
+    budgetGTE: Float
+    budgetLTE: Float
     bath: Int
     bed: Int
     houseHoldSex: Gender

@@ -76,16 +76,12 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'HouseHold'
     },
-    createdAt: {
-        type: String,
-        required: true,
-    },
 
-    updatedAt: {
-        type: String,
-    },
+    createdAt: { type: Date, default: Date.now },
+
+    updatedAt: { type: Date, default: Date.now }
 },
-    {timestamps: true}
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('User', userSchema);

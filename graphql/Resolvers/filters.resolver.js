@@ -7,8 +7,10 @@ module.exports = {
         homeFilters: async (_, { filtersInput }, { HouseHold }) => {
             const {
                 buildingType,
-                area,
-                budget,
+                areaLTE,
+                areaGTE,
+                budgetLTE,
+                budgetGTE,
                 bath,
                 bed,
                 houseHoldSex,
@@ -23,11 +25,13 @@ module.exports = {
             if (buildingType) {
                 query.buildingType = buildingType;
             };
-            if (area) {
-                query.area = area;
+            if (areaGTE !== undefined && areaLTE !== undefined) {
+                query.area = { $gte: `${areaGTE}`, $lte: `${areaLTE}` }
+
             };
-            if (budget) {
-                query.budget = budget;
+            if (budgetGTE !== undefined && budgetLTE !== undefined) {
+                query.budget = { $gte: `${budgetGTE}`, $lte: `${budgetLTE}` }
+
             };
             if (bath) {
                 query.bath = bath;
@@ -53,7 +57,7 @@ module.exports = {
             if (yard) {
                 query.yard = yard;
             };
-
+            console.log(query);
             const filterList = await HouseHold.find(query);
             return filterList
         },
@@ -61,10 +65,10 @@ module.exports = {
 
         /**Exactly, userFilters() is search query containing string input */
         searchQuery: async (_, { filter }, { User }) => {
-            const where = filter?
-            {
-                email: { $regex: filter, $options: 'i' }
-            } : {};
+            const where = filter ?
+                {
+                    email: { $regex: filter, $options: 'i' }
+                } : {};
             const listFilter = await User.find(where);
             return listFilter;
         }
