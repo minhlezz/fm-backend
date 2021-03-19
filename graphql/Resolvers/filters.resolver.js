@@ -1,9 +1,8 @@
-const { filter } = require("lodash");
-
 
 module.exports = {
 
     Query: {
+        /**Homes filter by properties */
         homeFilters: async (_, { filtersInput }, { HouseHold }) => {
             const {
                 buildingType,
@@ -62,8 +61,87 @@ module.exports = {
             return filterList
         },
 
+        /**User filter by properties */
+        userFilters: async (_, { userFilterInput }, { User }) => {
+            var userQuery = {};
+            const {
+                ageGTE,
+                ageLTE,
+                budgetGTE,
+                budgetLTE,
+                gender,
+                cleanliness,
+                overnightGuests,
+                partyHabits,
+                getUp,
+                goToBed,
+                foodReference,
+                smoker,
+                workSchedule,
+                occupation,
+                pet,
+            } = userFilterInput;
+            /**Age Property */
+            if (ageGTE !== undefined && ageLTE !== undefined) {
+                userQuery.age = { $gte: `${ageGTE}`, $lte: `${ageLTE}` }
 
-        /**Exactly, userFilters() is search query containing string input */
+            };
+            /**Budget Property */
+            if (budgetGTE !== undefined && budgetLTE !== undefined) {
+                query.budget = { $gte: `${budgetGTE}`, $lte: `${budgetLTE}` }
+            };
+            /**Gender Property */
+            if (gender) {
+                userQuery.gender = gender;
+            };
+            /**cleanliness Property */
+            if (cleanliness) {
+                userQuery.cleanliness = cleanliness;
+            };
+            /**overnightGuests Property */
+            if (overnightGuests) {
+                userQuery.overnightGuests = overnightGuests;
+            };
+            /**partyHabits Property */
+            if (partyHabits) {
+                userQuery.partyHabits = partyHabits;
+            };
+            /**getUp Property */
+            if (getUp) {
+                userQuery.getUp = getUp;
+            };
+            /**goToBed Property */
+            if (goToBed) {
+                userQuery.goToBed = goToBed;
+            };
+            /**foodReference Property */
+            if (foodReference) {
+                userQuery.foodReference = foodReference;
+            };
+            /**smoker Property */
+            if (smoker) {
+                userQuery.smoker = smoker;
+            };
+            /**workSchedule Property */
+            if (workSchedule) {
+                userQuery.workSchedule = workSchedule;
+            };
+            /**occupation Property */
+            if (occupation) {
+                userQuery.occupation = occupation;
+            };
+
+            /**This property stuck in case 1 user - n pets */
+            // if (pet) {
+            //     userQuery.pet = pet;
+            // };
+            console.log(userQuery);
+            const userFilterList = await User.find(userQuery);
+            return userFilterList
+        },
+
+
+        /**search query containing string input */
         searchQuery: async (_, { filter }, { User }) => {
             const where = filter ?
                 {
