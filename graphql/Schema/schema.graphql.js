@@ -150,9 +150,9 @@ input HouseHoldInput {
 }
 ##Filtering 
 input Filters {
-    buildingType: String
     areaGTE: Float
     areaLTE: Float
+    buildingType: String
     budgetGTE: Float
     budgetLTE: Float
     bath: Int
@@ -165,6 +165,24 @@ input Filters {
     yard: Boolean
 }
 
+input UserFilters {
+    ageGTE: Int
+    ageLTE: Int
+    budgetGTE: Float
+    budgetLTE: Float
+    gender: Gender
+    #Properties
+    cleanliness: String
+    overnightGuests: String
+    partyHabits: String
+    getUp: String
+    goToBed: String
+    foodReference: String
+    smoker: String
+    workSchedule: String
+    occupation: String
+    pet: String
+}
  
 
 ##Message
@@ -187,6 +205,7 @@ type Query {
     getHouseHold(id: ID!): HouseHold
     getHouseHolds: [HouseHold]
     homeFilters(filtersInput: Filters): [HouseHold]!
+    userFilters(userFilterInput: UserFilters): [User]!
     searchQuery(filter: String): [User]!
 }
 
