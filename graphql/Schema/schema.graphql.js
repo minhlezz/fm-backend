@@ -47,6 +47,7 @@ type User {
 
 
 enum Gender {
+    All
     Male
     Female
     Others
