@@ -88,12 +88,12 @@ module.exports = {
             };
             /**Budget Property */
             if (budgetGTE !== undefined && budgetLTE !== undefined) {
-                query.budget = { $gte: `${budgetGTE}`, $lte: `${budgetLTE}` }
+                userQuery.budget = { $gte: `${budgetGTE}`, $lte: `${budgetLTE}` }
             };
             /**Gender Property */
-            if (gender) {
+            if (gender === 'Male' || gender === 'Female') {
                 userQuery.gender = gender;
-            };
+            }
             /**cleanliness Property */
             if (cleanliness) {
                 userQuery.cleanliness = cleanliness;
