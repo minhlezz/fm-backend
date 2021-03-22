@@ -38,9 +38,10 @@ module.exports = {
             if (bed) {
                 query.bed = bed;
             };
-            if (houseHoldSex) {
+
+            if (houseHoldSex === 'Male' || houseHoldSex === 'Female') {
                 query.houseHoldSex = houseHoldSex;
-            };
+            }
             if (airConditioning) {
                 query.airConditioning = airConditioning;
             };
